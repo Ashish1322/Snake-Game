@@ -15,9 +15,9 @@ screen = pygame.display.set_mode(size_screen)
 pygame.display.set_caption('Snake Game @MauryaJi')
 
 # Loading some images
-image = pygame.image.load('1ak.jpg')
-image2 = pygame.image.load('2nd.jpg')
-image3 =  pygame.image.load('end.jpg')
+image = pygame.image.load('data/1ak.jpg')
+image2 = pygame.image.load('data/2nd.jpg')
+image3 =  pygame.image.load('data/end.jpg')
 
 pygame.display.update()
 clock = pygame.time.Clock()
@@ -39,7 +39,7 @@ def snake_sizeyyy(screen,color,snk_list,snake_size):
 def welcome():
     """Making a Welcome screen"""
     exit_game = True
-    pygame.mixer.music.load('welcome.mp3')
+    pygame.mixer.music.load('data/welcome.mp3')
     pygame.mixer.music.play(0)
     while exit_game:
         for event in pygame.event.get():
@@ -61,7 +61,7 @@ def game_loop():
     """All the activities like snake move , speed increase , score increase will done in this function"""
 
     # Open high score in text file and reading it
-    with open('highscore.txt', 'r') as f:
+    with open('data/highscore.txt', 'r') as f:
         high_score = f.read()
 
     #declaring some values
@@ -80,7 +80,7 @@ def game_loop():
     gameover = False
 
     #playing sound in background
-    pygame.mixer.music.load('background.mp3')
+    pygame.mixer.music.load('data/background.mp3')
     pygame.mixer.music.play()
     z = 5
 
@@ -88,12 +88,12 @@ def game_loop():
 
         if gameover == True:
             pygame.mixer.init()
-            pygame.mixer.music.load('gameover.mp3')
+            pygame.mixer.music.load('data/gameover.mp3')
             pygame.mixer.music.play(0)
             play = True
 
             while play:
-                m = open('highscore.txt', 'w')
+                m = open('data/highscore.txt', 'w')
                 m.write(str(high_score))
                 screen.blit(image3, (0, 0))
                 screen_score(f'Your score is {score}', (255, 255, 255), 320, 500)
@@ -148,14 +148,14 @@ def game_loop():
             pygame.draw.rect(screen, color_food, [food_x, food_y, 23, 23])
 
             # Eating food and making new food
-            if abs(rect_x-food_x)<21and abs(rect_y-food_y)<21:
+            if abs(rect_x-food_x)<21 and abs(rect_y-food_y)<21:
 
                 color_food = random.choice(color_foodls)
                 food_x = random.randrange(40, 845)
                 food_y = random.randrange(30, 550)
                 score+=10
                 # playing sound in different channel so that two sounds play together
-                pygame.mixer.Channel(1).play(pygame.mixer.Sound('eat.wav'))
+                pygame.mixer.Channel(1).play(pygame.mixer.Sound('data/eat.wav'))
                 snake_length+=5
 
                 # Making new high score
